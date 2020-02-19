@@ -1,17 +1,66 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="container">
+    <div class="buttons">
+      <button class="button is-primary" @click="onPythonClicked">Python</button>
+      <button class="button is-primary" @click="onVsClicked">Visual Basic</button>
+      <button class="button is-primary" @click="onJsClicked">JavaScript</button>
+    </div>
+    <CodeHighlight :code="code" :lang="lang"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CodeHighlight from './components/CodeHighlight.vue'
+
+const javaScriptCode = `
+function helloWorld() {
+  let message = 'Hello world';
+  console.log(message);
+}
+
+helloWorld();
+`
+
+const pythonCode = `
+def helloworld():
+    name = input('input your name: ')
+    message = 'Hello ' + name + ' !'
+    print(message)
+
+helloworld()
+`
+
+const vsCode = `
+static void Main(string[] args)
+{
+  Console.WriteLine("Hello World!");
+}
+`
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    CodeHighlight
+  },
+  data: function() {
+    return {
+      code: javaScriptCode,
+      lang: 'javascript'
+    }
+  },
+  methods: {
+    onPythonClicked () {
+      this.code = pythonCode
+      this.lang = 'python'
+    },
+    onVsClicked () {
+      this.code = vsCode
+      this.lang = 'cs'
+    },
+    onJsClicked () {
+      this.code = javaScriptCode
+      this.lang = 'javascript'
+    }
   }
 }
 </script>
